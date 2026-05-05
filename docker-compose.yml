@@ -1,0 +1,9 @@
+# Temporal CLI dev server (gRPC + Web UI). Requires Docker.
+# Usage: docker compose up -d   then   npm run present:attach
+services:
+  temporal:
+    image: temporalio/temporal:latest
+    command: server start-dev --ip 0.0.0.0
+    ports:
+      - "7233:7233"
+      - "8233:8233"

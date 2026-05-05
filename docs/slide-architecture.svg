@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .box { fill: #f8fafc; stroke: #0f172a; stroke-width: 2; rx: 8; }
+      .box-accent { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .box-win { fill: #dcfce7; stroke: #15803d; stroke-width: 2; rx: 8; }
+      .title { font-family: system-ui, -apple-system, Segoe UI, sans-serif; font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .text { font-family: system-ui, -apple-system, Segoe UI, sans-serif; font-size: 12px; fill: #334155; }
+      .small { font-size: 11px; fill: #64748b; }
+      .arrow { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#m); }
+      .dashed { stroke-dasharray: 6 4; stroke: #64748b; }
+    ]]></style>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <text x="480" y="36" text-anchor="middle" class="title" font-size="20">Smart Fallback Orchestrator  Parallel API Race</text>
+  <text x="480" y="58" text-anchor="middle" class="small">First successful path wins · remaining activities cancelled (Temporal)</text>
+
+  <!-- Client -->
+  <rect x="40" y="90" width="140" height="72" class="box-accent"/>
+  <text x="110" y="118" text-anchor="middle" class="title">Client</text>
+  <text x="110" y="138" text-anchor="middle" class="text">Start workflow</text>
+  <text x="110" y="154" text-anchor="middle" class="small">smartFallbackRace</text>
+
+  <!-- Temporal Server -->
+  <rect x="240" y="90" width="160" height="72" class="box-accent"/>
+  <text x="320" y="118" text-anchor="middle" class="title">Temporal</text>
+  <text x="320" y="138" text-anchor="middle" class="text">Server</text>
+  <text x="320" y="154" text-anchor="middle" class="small">task queue: smart-fallback</text>
+
+  <!-- Worker -->
+  <rect x="460" y="90" width="160" height="72" class="box-accent"/>
+  <text x="540" y="118" text-anchor="middle" class="title">Worker</text>
+  <text x="540" y="138" text-anchor="middle" class="text">Node + TS SDK</text>
+  <text x="540" y="154" text-anchor="middle" class="small">workflows + activities</text>
+
+  <path class="arrow" d="M 180 126 L 235 126"/>
+  <path class="arrow" d="M 400 126 L 455 126"/>
+  <path class="arrow dashed" d="M 620 126 L 700 126"/>
+
+  <!-- Workflow box -->
+  <rect x="700" y="85" width="220" height="82" class="box"/>
+  <text x="810" y="112" text-anchor="middle" class="title">Workflow (deterministic)</text>
+  <text x="810" y="132" text-anchor="middle" class="text">CancellationScope.cancellable</text>
+  <text x="810" y="150" text-anchor="middle" class="small">Promise.race ’ cancel scope</text>
+
+  <!-- Parallel activities -->
+  <text x="480" y="230" text-anchor="middle" class="title" font-size="14">Activities (parallel  mocked latency)</text>
+
+  <rect x="80" y="250" width="200" height="88" class="box"/>
+  <text x="180" y="278" text-anchor="middle" class="title">API A</text>
+  <text x="180" y="298" text-anchor="middle" class="text">~3s ’ success</text>
+  <text x="180" y="316" text-anchor="middle" class="small">slow provider</text>
+
+  <rect x="380" y="250" width="200" height="88" class="box"/>
+  <text x="480" y="278" text-anchor="middle" class="title">API B</text>
+  <text x="480" y="298" text-anchor="middle" class="text">~2s ’ error</text>
+  <text x="480" y="316" text-anchor="middle" class="small">unreliable provider</text>
+
+  <rect x="680" y="250" width="200" height="88" class="box-win"/>
+  <text x="780" y="278" text-anchor="middle" class="title">API C</text>
+  <text x="780" y="298" text-anchor="middle" class="text">~1s ’ success</text>
+  <text x="780" y="316" text-anchor="middle" class="small">fastest winner (demo)</text>
+
+  <!-- Arrows worker to activities -->
+  <path class="arrow dashed" d="M 520 162 L 520 200 L 180 200 L 180 248"/>
+  <path class="arrow dashed" d="M 540 162 L 540 210 L 480 210 L 480 248"/>
+  <path class="arrow dashed" d="M 560 162 L 560 220 L 780 220 L 780 248"/>
+
+  <!-- Decision -->
+  <polygon points="480,390 560,430 480,470 400,430" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="480" y="425" text-anchor="middle" class="title" font-size="13">First</text>
+  <text x="480" y="442" text-anchor="middle" class="title" font-size="13">success</text>
+
+  <path class="arrow" d="M 780 338 L 780 365 L 520 365 L 520 388"/>
+  <text x="650" y="358" class="small">winner in typical demo</text>
+
+  <!-- Outcome -->
+  <rect x="320" y="485" width="320" height="28" class="box-win"/>
+  <text x="480" y="503" text-anchor="middle" class="text" font-weight="600">Return { winner, value } · cancel in-flight A / B</text>
+</svg>

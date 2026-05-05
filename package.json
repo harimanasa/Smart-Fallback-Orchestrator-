@@ -1,0 +1,30 @@
+{
+  "name": "smart-fallback-orchestrator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Temporal demo: parallel API race, first success wins, cancel the rest",
+  "scripts": {
+    "present": "tsx src/demo-present.ts",
+    "present:attach": "SKIP_EMBEDDED=1 tsx src/demo-present.ts",
+    "present:attach:quiet": "DEMO_QUIET=1 SKIP_EMBEDDED=1 tsx src/demo-present.ts",
+    "present:quiet": "DEMO_QUIET=1 npm run present",
+    "present:docker": "docker compose up -d && npx --yes wait-on -t 120000 -i 400 tcp:127.0.0.1:7233 && npm run present:attach",
+    "start.worker": "tsx src/worker.ts",
+    "start.workflow": "tsx src/client.ts",
+    "demo": "npm run present",
+    "slides:pdf": "npx --yes @marp-team/marp-cli --no-stdin docs/PRESENTATION.md --pdf --allow-local-files -o docs/presentation.pdf",
+    "slides:html": "npx --yes @marp-team/marp-cli --no-stdin docs/PRESENTATION.md --allow-local-files -o docs/presentation.html"
+  },
+  "dependencies": {
+    "@temporalio/activity": "^1.11.7",
+    "@temporalio/client": "^1.11.7",
+    "@temporalio/worker": "^1.11.7",
+    "@temporalio/workflow": "^1.11.7"
+  },
+  "devDependencies": {
+    "@temporalio/testing": "^1.17.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
