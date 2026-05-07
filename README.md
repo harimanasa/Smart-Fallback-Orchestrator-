@@ -53,14 +53,14 @@ npm run present:quiet
 npm run present:attach:quiet
 ```
 
-## What you present
+## What's in here
 
 | Asset | Path |
 |--------|------|
 | Slide deck (source) | [`docs/PRESENTATION.md`](docs/PRESENTATION.md) |
 | Slide deck (HTML) | Open [`docs/presentation.html`](docs/presentation.html) in a browser |
 | Architecture SVG | [`docs/slide-architecture.svg`](docs/slide-architecture.svg) |
-| **What to say + timing** | [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) |
+| **timing** | [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) |
 | Example terminal transcript | [`docs/EXAMPLE_OUTPUT.md`](docs/EXAMPLE_OUTPUT.md) |
 | Test matrix | [`docs/slides-smart-fallback.md`](docs/slides-smart-fallback.md) |
 
@@ -77,6 +77,6 @@ npm run present:attach:quiet
 
 API **C** (~1s) beats **A** (~3s); **B** fails (~2s) after the workflow has already picked **C**. You may still see **A**/**B** finish in the worker after the workflow completes — that is normal in-flight activity behavior; the **workflow result** is what you show judges.
 
-## Pitch
+## Big Point
 
 “We execute multiple paths in parallel, take the **first successful outcome**, and **cancel** what is still running — durable orchestration with **Temporal**, not serial retry loops.”
